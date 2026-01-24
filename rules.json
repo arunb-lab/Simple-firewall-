@@ -1,0 +1,25 @@
+{
+  "rules": [
+    {
+      "name": "Block all inbound SSH",
+      "action": "DENY",
+      "dst_port": 22,
+      "protocol": "TCP",
+      "direction": "IN"
+    },
+    {
+      "name": "Allow outbound DNS",
+      "action": "ALLOW",
+      "dst_port": 53,
+      "protocol": "UDP",
+      "direction": "OUT"
+    },
+    {
+      "name": "Allow local network",
+      "action": "ALLOW",
+      "src_cidr": "192.168.1.0/24",
+      "dst_cidr": "192.168.1.0/24",
+      "direction": "ANY"
+    }
+  ]
+}
