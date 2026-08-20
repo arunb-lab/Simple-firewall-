@@ -1,25 +1,72 @@
 {
   "rules": [
     {
-      "name": "Block all inbound SSH",
+      "name": "Block inbound SSH",
+      "description": "Administration happens over the VPN, never from the internet.",
       "action": "DENY",
-      "dst_port": 22,
+      "direction": "IN",
       "protocol": "TCP",
-      "direction": "IN"
+      "dst_port": 22
+    },
+    {
+      "name": "Block inbound database and remote desktop",
+      "description": "These services must never be reachable from outside the LAN.",
+      "action": "DENY",
+      "direction": "IN",
+      "protocol": "TCP",
+      "dst_port": [3306, 3389, 5432]
+    },
+    {
+      "name": "Allow LAN to LAN",
+      "description": "Hosts on the office network may talk to each other freely.",
+      "action": "ALLOW",
+      "src_cidr": "192.168.1.0/24",
+      "dst_cidr": "192.168.1.0/24"
+    },
+    {
+      "name": "Allow inbound web to the public server",
+      "action": "ALLOW",
+      "direction": "IN",
+      "protocol": "TCP",
+      "dst_cidr": "192.168.1.10/32",
+      "dst_port": "80,443"
     },
     {
       "name": "Allow outbound DNS",
       "action": "ALLOW",
-      "dst_port": 53,
+      "direction": "OUT",
       "protocol": "UDP",
-      "direction": "OUT"
+      "dst_port": 53
     },
     {
-      "name": "Allow local network",
+      "name": "Allow outbound NTP",
       "action": "ALLOW",
-      "src_cidr": "192.168.1.0/24",
-      "dst_cidr": "192.168.1.0/24",
-      "direction": "ANY"
+      "direction": "OUT",
+      "protocol": "UDP",
+      "dst_port": 123
+    },
+    {
+      "name": "Allow outbound web browsing",
+      "action": "ALLOW",
+      "direction": "OUT",
+      "protocol": "TCP",
+      "dst_port": "80,443"
+    },
+    {
+      "name": "Allow outbound ping",
+      "action": "ALLOW",
+      "direction": "OUT",
+      "protocol": "ICMP"
+    },
+    {
+      "name": "Allow inbound to the dev app servers",
+      "description": "Turned off outside of testing windows; flip 'enabled' to use it.",
+      "action": "ALLOW",
+      "enabled": false,
+      "direction": "IN",
+      "protocol": "TCP",
+      "dst_cidr": ["192.168.1.20/32", "192.168.1.21/32"],
+      "dst_port": "8000-8100"
     }
   ]
 }
