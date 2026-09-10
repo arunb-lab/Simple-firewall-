@@ -1,0 +1,9 @@
+# Example traffic for `firewall simulate --input sample_traffic.jsonl`.
+# One JSON object per line; blank lines and # comments are ignored.
+{"src_ip": "203.0.113.10", "dst_ip": "192.168.1.10", "protocol": "TCP", "direction": "IN", "src_port": 51515, "dst_port": 22}
+{"src_ip": "203.0.113.10", "dst_ip": "192.168.1.10", "protocol": "TCP", "direction": "IN", "src_port": 51516, "dst_port": 443}
+{"src_ip": "192.168.1.11", "dst_ip": "8.8.8.8", "protocol": "UDP", "direction": "OUT", "src_port": 54000, "dst_port": 53}
+{"src_ip": "192.168.1.15", "dst_ip": "192.168.1.20", "protocol": "TCP", "direction": "OUT", "src_port": 50000, "dst_port": 5001}
+{"src_ip": "192.168.1.11", "dst_ip": "1.1.1.1", "protocol": "ICMP", "direction": "OUT"}
+{"src_ip": "198.51.100.7", "dst_ip": "192.168.1.20", "protocol": "TCP", "direction": "IN", "src_port": 44444, "dst_port": 3306}
+{"src_ip": "192.168.1.10", "dst_ip": "198.51.100.7", "protocol": "TCP", "direction": "OUT", "src_port": 49200, "dst_port": 8080}
